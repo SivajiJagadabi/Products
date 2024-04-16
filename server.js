@@ -11,7 +11,10 @@ app.use(cors())
 
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+
+
+
+app.use('/static',express.static(path.join(__dirname, 'public')))
 
 
 const products = [
@@ -20,14 +23,14 @@ const products = [
         title: "The Brown Metro Movers",
         price: 8999,
         discount: 50,
-        image: "https://www.nuaah.com/cdn/shop/products/Ik9hWOeSDw_92.jpg?v=1647281228"
+        image: "http://localhost:3001/static/images/Bag2.jpg"
     },
     {
         id: 2,
         title: "The Brown Metro Movers",
         price: 8999,
         discount: 50,
-        image: "https://tann.gumlet.io/media/gen/image/SIPR04031_01_rnZiBfp.JPG"
+        image: "http://localhost:3001/static/images/Bag1.jpg"
     },
     {
         id: 3,
@@ -76,7 +79,11 @@ const products = [
 
 
 // Get all products
+
+
 app.get('/api/products', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache');
+
     res.json(products);
 });
 
